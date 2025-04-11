@@ -4,10 +4,18 @@ import (
 	"http_auth/internal/domain"
 )
 
+type usersRepository interface {
+	FindByUUID(ID int) (*domain.User, error)
+}
+
 type UserRepo struct {
-	Data domain.FindByUUID
+	usersRepository usersRepository
+}
+
+func NewUserRepo(data usersRepository) *UserRepo {
+	return &UserRepo{usersRepository: data}
 }
 
 func (UR *UserRepo) FindByUUID(ID int) (*domain.User, error) {
-	return UR.Data.FindByUUID(ID)
+	return UR.usersRepository.FindByUUID(ID)
 }
