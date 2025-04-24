@@ -5,7 +5,3 @@ type User struct {
 	Name    string
 	Surname string
 }
-
-type FindByUUID interface {
-	FindByUUID(int) (*User, error)
-}

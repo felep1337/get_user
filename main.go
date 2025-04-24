@@ -30,8 +30,10 @@ func run() error {
 		поменять БД с clickhouse на PostgreSQL и тд и тп. Работает это на все остальные уровни тоже
 	*/
 	//repository := repo.NewUserRepoMap(DB)
-	otherRepository := repo.NewOtherUserRepo()
-	useCase := use_case.NewUserRepo(otherRepository)
+	connStr := "user=postgres password=secret dbname=mydb host=localhost port=5432 sslmode=disable"
+
+	DBRepository := repo.NewUserRepoPostgres(connStr)
+	useCase := use_case.NewUserRepo(DBRepository)
 	handler := http_handler.NewHandler(useCase)
 	fmt.Println("Server is running at http://localhost:8080")
 
